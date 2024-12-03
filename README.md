@@ -1,4 +1,4 @@
-# Ozon Search Test Automation
+# "Ozon Search Test Automation"
 
 ## Description 
 This project is designed to automate the testing of the search functionality on the Ozon website using the Playwright library with TypeScript. The main objectives are to verify the accuracy of product search results and the proper application of price filters.

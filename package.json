@@ -1,0 +1,20 @@
+{
+  "name": "lalafo_searchtest",
+  "version": "1.0.0",
+  "description": "Lalafo search filtering test in JS",
+  "main": "index.js",
+  "scripts": {
+    "run-tests": "newman run lalafo_collection.json -r htmlextra --reporter-htmlextra-export reports/report.html"
+  },
+  "author": "Kamila Kamieva",
+  "license": "ISC",
+  "dependencies": {
+    "dotenv": "^16.4.5",
+    "playwright": "^1.48.0"
+  },
+  "devDependencies": {
+    "@faker-js/faker": "^9.2.0",
+    "@playwright/test": "^1.48.0",
+    "@types/node": "^22.7.5"
+  }
+}

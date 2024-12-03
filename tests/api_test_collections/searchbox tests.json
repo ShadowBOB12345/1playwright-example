@@ -1,0 +1,170 @@
+{
+	"info": {
+		"_postman_id": "91c4489c-f765-41c7-b17c-186bd32cf269",
+		"name": "Lalafo Product Search & Filters",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+		"_exporter_id": "38693436"
+	},
+	"item": [
+		{
+			"name": "Search Products",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"pm.test(\"Status code is 200\", function () {\r",
+							"    pm.response.to.have.status(200);\r",
+							"});\r",
+							"\r",
+							"pm.test(\"Response is in JSON format\", function () {\r",
+							"    pm.response.to.be.json;\r",
+							"});\r",
+							"\r",
+							"pm.test(\"Response includes required fields\", function () {\r",
+							"    const jsonData = pm.response.json();\r",
+							"    pm.expect(jsonData.results).to.be.an(\"array\");\r",
+							"    pm.expect(jsonData).to.be.an(\"object\");\r",
+							"});\r",
+							""
+						],
+						"type": "text/javascript",
+						"packages": {}
+					}
+				}
+			],
+			"protocolProfileBehavior": {
+				"disabledSystemHeaders": {}
+			},
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "{{baseUrl}}/api/seo/v3/metas/listing?q=Офисные столы&page=1&add_location=true",
+					"host": [
+						"{{baseUrl}}"
+					],
+					"path": [
+						"api",
+						"seo",
+						"v3",
+						"metas",
+						"listing"
+					],
+					"query": [
+						{
+							"key": "q",
+							"value": "Офисные столы"
+						},
+						{
+							"key": "page",
+							"value": "1"
+						},
+						{
+							"key": "add_location",
+							"value": "true"
+						}
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Apply Filters",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"pm.test(\"Status code is 200\", function () {\r",
+							"    pm.response.to.have.status(200);\r",
+							"});\r",
+							"\r",
+							"pm.test(\"Response format is JSON\", function () {\r",
+							"    pm.response.to.be.json;\r",
+							"});\r",
+							"\r",
+							"pm.test(\"Price range filter works correctly\", function () {\r",
+							"    const jsonData = pm.response.json();\r",
+							"    pm.expect(jsonData.results).to.be.an(\"array\");\r",
+							"    jsonData.results.forEach(item => {\r",
+							"        pm.expect(item.price).to.be.within(parseInt(pm.variables.get(\"min_price\")), parseInt(pm.variables.get(\"max_price\")));\r",
+							"    });\r",
+							"});\r",
+							""
+						],
+						"type": "text/javascript",
+						"packages": {}
+					}
+				}
+			],
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "{{baseUrl}}/api/catalog/v3/params/filter?min_price=3000&max_price=10000",
+					"host": [
+						"{{baseUrl}}"
+					],
+					"path": [
+						"api",
+						"catalog",
+						"v3",
+						"params",
+						"filter"
+					],
+					"query": [
+						{
+							"key": "max_price",
+							"value": "10000"
+						},
+						{
+							"key": "min_price",
+							"value": "3000"
+						}
+					]
+				}
+			},
+			"response": []
+		}
+	],
+	"event": [
+		{
+			"listen": "prerequest",
+			"script": {
+				"type": "text/javascript",
+				"packages": {},
+				"exec": [
+					""
+				]
+			}
+		},
+		{
+			"listen": "test",
+			"script": {
+				"type": "text/javascript",
+				"packages": {},
+				"exec": [
+					""
+				]
+			}
+		}
+	],
+	"variable": [
+		{
+			"key": "baseUrl",
+			"value": "https://lalafo.kg",
+			"type": "string"
+		},
+		{
+			"key": "searchEndpoint",
+			"value": "/api/search",
+			"type": "string"
+		},
+		{
+			"key": "filterEndpoint",
+			"value": "",
+			"type": "string"
+		}
+	]
+}
